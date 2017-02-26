@@ -1,3 +1,3 @@
-/Users/Home/Duke/ECE590/CMakeFiles/rebuild_cache.dir
-/Users/Home/Duke/ECE590/CMakeFiles/edit_cache.dir
-/Users/Home/Duke/ECE590/CMakeFiles/DisplayImage.dir
+/Users/Alex/documents/workspaceC/logodet/CMakeFiles/rebuild_cache.dir
+/Users/Alex/documents/workspaceC/logodet/CMakeFiles/edit_cache.dir
+/Users/Alex/documents/workspaceC/logodet/CMakeFiles/DisplayImage.dir

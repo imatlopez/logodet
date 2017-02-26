@@ -1,4 +1,4 @@
-# Install script for directory: /Users/Home/Duke/ECE590
+# Install script for directory: /Users/Alex/documents/workspaceC/logodet
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/Home/Duke/ECE590/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/Alex/documents/workspaceC/logodet/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
