@@ -1,4 +1,4 @@
-I = double(rgb2gray(imread('IMG/zoomwalt.png')))/255;
+I = double(rgb2gray(imread('../IMG/zoomwalt.png')))/255;
 G = imgradient(I);
 J = I;
 for i = 1:size(I,1)
@@ -8,9 +8,9 @@ for i = 1:size(I,1)
         g = G(k1,k2);
         v = I(k1,k2);
         F = v./(1+g);
-        J(i,j) = mean(F(:));
+        J(i,j) = median(F(:));
     end
 end
 J = uint8(round(J*255));
 imshow(J)
-imsave
+%imsave
