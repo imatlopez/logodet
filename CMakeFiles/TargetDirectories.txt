@@ -1,3 +1,0 @@
-/Users/Alex/documents/workspaceC/logodet/CMakeFiles/rebuild_cache.dir
-/Users/Alex/documents/workspaceC/logodet/CMakeFiles/edit_cache.dir
-/Users/Alex/documents/workspaceC/logodet/CMakeFiles/DisplayImage.dir
