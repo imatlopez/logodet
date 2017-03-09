@@ -1,8 +1,8 @@
 %clear
 normalize = @(x) (x - min(x(:)))/(max(x(:)) - min(x(:)));
 
-In  = 'zoomwalt.png';
-Out = 'zoommat.png';
+In  = 'tom.png';
+Out = 'tommat.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
