@@ -1,4 +1,4 @@
-# Install script for directory: /Users/Home/Duke/ECE590/ASIFT/io_png/libs
+# Install script for directory: /Users/Home/Duke/ECE590/ASIFT/src/io_png/libs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/Home/Duke/ECE590/ASIFT
+# Install script for directory: /Users/Home/Duke/ECE590/ASIFT/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -19,16 +19,18 @@
 
 function ASIFT(img1, img2, imgOutVert, imgOutHori, matchings, keys1, keys2, flag)
 
+if nargin < 3 || isempty(imgOutVert); imgOutVert = 'imgOutVert.png'; end
+if nargin < 4 || isempty(imgOutHori); imgOutHori = 'imgOutHori.png'; end
+if nargin < 5 || isempty(matchings); matchings = 'matchings.txt'; end
+if nargin < 6 || isempty(keys1); keys1 = 'keys1.txt'; end
+if nargin < 7 || isempty(keys2); keys2 = 'keys2.txt'; end
 if nargin < 8 || isempty(flag); flag = 1; end
 
 imgOutVert = fullfile('..', imgOutVert);
 imgOutHori = fullfile('..', imgOutHori);
-
 matchings = fullfile('..', matchings);
-
 keys1 = fullfile('..', keys1);
 keys2 = fullfile('..', keys2);
-
 
 imgIn1 = imread(fullfile('..', 'IMG', img1));
 imgIn2 = imread(fullfile('..', 'IMG', img2));
@@ -40,7 +42,7 @@ imwrite(imgIn1, img1_png, 'png');
 imwrite(imgIn2, img2_png, 'png');
 
 % ASIFT command
-command_ASIFT = '../ASIFT/demo_ASIFT'; 
+command_ASIFT = fullfile('..', 'ASIFT', 'demo_ASIFT'); 
 command_ASIFT = [command_ASIFT ' ' img1_png ' ' img2_png ' ' ...
   imgOutVert ' ' imgOutHori ' ' matchings ' ' keys1 ' ' keys2];
 if (flag == 0)
