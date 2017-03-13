@@ -32,14 +32,20 @@ matchings = fullfile('..', matchings);
 keys1 = fullfile('..', keys1);
 keys2 = fullfile('..', keys2);
 
-imgIn1 = imread(fullfile('..', 'IMG', img1));
-imgIn2 = imread(fullfile('..', 'IMG', img2));
+% convert the image to png format
+img1_png = fullfile('..', 'IMG', img1);
+if ~contains(img1, '.png')
+    imgIn1 = imread(img1_png);
+    img1_png = 'tmpASIFTinput1.png';
+    imwrite(imgIn1, img1_png, 'png');
+end
 
-% convert the image to png format 
-img1_png = 'tmpASIFTinput1.png';
-img2_png = 'tmpASIFTinput2.png';
-imwrite(imgIn1, img1_png, 'png');
-imwrite(imgIn2, img2_png, 'png');
+img2_png = fullfile('..', 'IMG', img2);
+if ~contains(img2, '.png')
+    imgIn2 = imread(img2_png);
+    img2_png = 'tmpASIFTinput2.png';
+    imwrite(imgIn2, img2_png, 'png');
+end
 
 % ASIFT command
 command_ASIFT = fullfile('..', 'ASIFT', 'demo_ASIFT'); 
@@ -82,7 +88,7 @@ end
 
 status = system(command);
 
-delete(img1_png)
-delete(img2_png)
+if contains('tmp', img1_png); delete(img1_png); end
+if contains('tmp', img2_png); delete(img2_png); end
 
 assert(status == 0);

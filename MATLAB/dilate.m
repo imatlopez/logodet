@@ -8,10 +8,8 @@ if size(I,3) > 1; I = rgb2gray(I); end
 I = norm(double(I));
 I = histeq(I);
 
-J = medfilt2(I, [5 5], 'symmetric');
-
-
-%imwrite(clip(K),['../IMG/' Out],'PNG')
+J = norm(imgradient(I));
+imwrite(clip(I.*(1-J)),['../IMG/' Out],'PNG')
 
 function A = norm(I)
 A = I - min(I(:));
@@ -22,4 +20,4 @@ function A = clip(I)
 A = I;
 A(I < 0) = 0;
 A(I > 1) = 1;
-end
+end  

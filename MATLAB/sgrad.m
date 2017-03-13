@@ -1,35 +1,30 @@
 %clear
-normalize = @(x) (x - min(x(:)))/(max(x(:)) - min(x(:)));
 
-In  = 'canvert.png';
-Out = 'matcan.png';
+In  = 'walt.png';
+Out = 'waltmat.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
-I = double(I)/255;
+I = norm(double(I));
+I = histeq(I);
 
-vic = 5; mid = round(vic/2);
-J = I;%histeq(I);
-J = normalize(imsharpen(J, 'Radius',vic,'Amount',5));
-J = medfilt2(J,[vic vic]);
-[~,Ga] = imgradient(J);
-[di, dj] = meshgrid((1:vic)-mid);
+J = medfilt2(I, [15 15], 'symmetric');
+K = imsharpen(J, 'Radius', 1, 'Amount', 1.5, 'Threshold', 0);
 
-for i = 1:size(I, 1)
-    for j = 1:size(I,2)
-        dI  = di*0; dI(mid, mid) = J(i,j);
-        dIa = di*0;
-        for k = 1:vic^2
-            if i+di(k) > 0 && j+dj(k) > 0 && i+di(k) <= size(I, 1) && j+dj(k) <= size(I, 2)
-                dI(mid+di(k), mid+dj(k)) = J(i+di(k), j+dj(k));
-                dIa(mid+di(k), mid+dj(k)) = 1/(1e-6+abs(J(i,j)-J(i+di(k), j+dj(k))))^2 * sqrt(1/sqrt(di(k)^2+dj(k)^2));
-            end
-        end
-        dIa(mid, mid) = 0;
-        dIa = (vic^2-1)/vic^2/sum(dIa(:))*dIa; dIa(mid, mid) = 1/vic^2;
-        J(i,j) = sum(sum(dI.*dIa));
-    end
+figure(1)
+imshowpair(clip(J), clip(K), 'diff')
+figure(2)
+imshowpair(I, clip(K), 'montage')
+
+imwrite(K,['../IMG/' Out],'PNG')
+
+function A = norm(I)
+A = I - min(I(:));
+A = A / max(A(:));
 end
-J = histeq(J);
-imshow(J)
-imwrite(J,['../IMG/' Out],'PNG')
+
+function A = clip(I)
+A = I;
+A(I < 0) = 0;
+A(I > 1) = 1;
+end
