@@ -13,4 +13,4 @@ for i = 1:size(I,1)
 end
 J = uint8(round(J*255));
 imshow(J)
-%imsave
+imwrite(J,['../IMG/' 'matcan.png'],'PNG')

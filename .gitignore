@@ -8,3 +8,5 @@ k2.txt
 **/makefile
 
 m.txt
+
+*.m~
