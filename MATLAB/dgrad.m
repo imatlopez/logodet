@@ -8,12 +8,10 @@ if size(I,3) > 1; I = rgb2gray(I); end
 I = norm(double(I));
 I = histeq(I);
 
-J = norm(imgradient(I));
-J = I;%clip(I.*(1-J));
+J = I;
  
 frag_dim = [5 5];
 frag_ext = (frag_dim-1)/2;
-order = 1/3;
 
 for i = 1:size(I,1)
     ik = max(1, i-floor(frag_ext(1))):min(i+ceil(frag_ext(1)), size(I,1));
@@ -21,10 +19,15 @@ for i = 1:size(I,1)
         jk = max(1, j-floor(frag_ext(2))):min(j+ceil(frag_ext(2)), size(I,2));
         nk = length(ik) * length(jk) - 1;
         gk = J(ik, jk) - J(i, j);
-        dk = sum(sign(gk(:)).*abs(gk(:)).^order); % sum
-        dk = sign(dk)*abs(dk/nk).^(1/order); % mean
-        
-        J(i, j) = J(i, j) + dk;
+        dik = (repmat(ik', [1 length(jk)]) - i).*abs(gk)./sum(abs(gk(:)));
+        djk = (repmat(jk,  [length(ik) 1]) - j).*abs(gk)./sum(abs(gk(:)));
+        dv = [sum(djk(:)) sum(dik(:))]/(length(ik)-1);
+        dv(isnan(dv)) = 0;
+        di = i+[0 0 floor(dv(1)) floor(dv(1)) ceil(dv(1)) ceil(dv(1))];
+        if any(di < 1 | di > size(I,1)); di = i+[0 0 floor(-dv(1)) floor(-dv(1)) ceil(-dv(1)) ceil(-dv(1))]; end
+        dj = j+[0 0 floor(dv(2)) ceil(dv(2)) floor(dv(2)) ceil(dv(2))];
+        if any(dj < 1 | dj > size(I,2)); dj = j+[0 0 floor(-dv(2)) ceil(-dv(2)) floor(-dv(2)) ceil(-dv(2))]; end
+        J(i, j) = mean(mean(J(di, dj)));
     end
 end
 

@@ -1,5 +1,5 @@
 clear
-In = 'zoomwalt.png';
+In = 'tom.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
@@ -38,7 +38,7 @@ end
 results = cell(frag_num);
 
 for i = 1:length(images)
-    ASIFT('canvert.png', fullfile('..', 'MATLAB', images{i}))
+    ASIFT('logo.png', fullfile('..', 'MATLAB', images{i}))
     results{i} = size(matched());
     delete(images{i})
 end
