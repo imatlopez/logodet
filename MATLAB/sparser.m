@@ -1,52 +1,51 @@
 % clear
 
 % mex sparseEncode.cpp
+% mex sparseAdapt.cpp
 
 In = 'walt.png';
-Ref = 'logo.png';
+Ref = 'canvert.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
 I = norm(double(I));
 I = norm(histeq(I));
+Iz = size(I);
+Ii = composeTo(I);
+
+% R = imread(['../IMG/' Ref]);
+% if size(R,3) > 1; R = rgb2gray(R); end
+% R = norm(double(R));
+% R = norm(histeq(R));
+% Rz = size(R);
+% Ri = composeTo(R);
 
 D = initdict();
+%D = adapt(D, Ri, 3);
 
-R = imread(['../IMG/' Ref]);
-if size(R,3) > 1; R = rgb2gray(R); end
-R = norm(double(R));
-R = norm(histeq(R));
-Rz = size(R);
-Ri = composeTo(R);
-Ra = sparseEncode(D, Ri);
-Ro = composeFrom(Ri, Rz);
-Rb = decode(D, Ra);
-Rc = composeFrom(Rb, Rz);
+% Ra = sparseEncode(D, Ri);
+% Rb = decode(D, Ra);
+% Rc = composeFrom(Rb, Rz);
 
-%Da = adapt(D, Ra, Ri, 5);
+figure(1)
+imshowpair(R,Rc,'montage')
+
+Ia = sparseEncode(D, Ii);
+Ib = decode(D, Ia);
+Ic = composeFrom(Ib, Iz);
+
+figure(2)
+imshowpair(I,Ic,'montage')
 
 % remove('sparseEncode.mex*')
 
-function D = adapt(D, A, I, n)
-    if nargin < 4 || isempty(n); n = 1; end
+function D = adapt(D, I, n)
+    if nargin < 3 || isempty(n); n = 1; end
     while n > 0
-        for i = 1:size(D,2)
-            M = A(i, :) ~= 0; N = find(M);
-            J = zeros(64, sum(M));
-            E = J;
-            F = J; % Proportion to total effect
-            G = J; % Magnitude of effect
-            for j = 1:sum(M)
-                l.v = A(:,i);
-                F(:,j) = l.v(N(j))./sum(l.v);
-                G(:,j) = l.v(N(j));
-                l.u = l.v; l.u(N(j)) = 0;
-                E(:,j) = sum(abs(I - D * l.u));
-                J(:,j) = I - D * l.v; % D[64.d] * [d.1]
-            end
-            J = sum(E.*F.*G.*J, 2)/sum(E.*F.*G, 2);
-            D(:,i) = D(:,i) + J;
-        end
+        fprintf('Encode #%d\n', n)
+        A = sparseEncode(D, I);
+        fprintf('Adapting #%d\n', n)
+        D = sparseAdapt(D, I, A);
         n = n - 1;
     end
 end
