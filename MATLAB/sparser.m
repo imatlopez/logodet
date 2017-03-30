@@ -4,38 +4,24 @@
 % mex sparseAdapt.cpp
 
 In = 'walt.png';
-Ref = 'canvert.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
 I = norm(double(I));
 I = norm(histeq(I));
+[I, Ip] = pad(I);
 Iz = size(I);
-Ii = composeTo(I);
+% Ii = composeTo(I);
 
-% R = imread(['../IMG/' Ref]);
-% if size(R,3) > 1; R = rgb2gray(R); end
-% R = norm(double(R));
-% R = norm(histeq(R));
-% Rz = size(R);
-% Ri = composeTo(R);
+% D = initdict(Ii);
+% D = adapt(D, Ii, 5);
 
-D = initdict();
-%D = adapt(D, Ri, 3);
-
-% Ra = sparseEncode(D, Ri);
-% Rb = decode(D, Ra);
-% Rc = composeFrom(Rb, Rz);
-
-figure(1)
-imshowpair(R,Rc,'montage')
-
-Ia = sparseEncode(D, Ii);
+% Ia = sparseEncode(D, Ii);
 Ib = decode(D, Ia);
 Ic = composeFrom(Ib, Iz);
+Id = unpad(Ic, Ip);
 
-figure(2)
-imshowpair(I,Ic,'montage')
+imshowpair(I,norm(Ic),'montage')
 
 % remove('sparseEncode.mex*')
 
@@ -50,58 +36,74 @@ function D = adapt(D, I, n)
     end
 end
 
+function [A, P] = pad(I)
+    x = 16;
+    P(1) = x*ceil(size(I,1)/x) - size(I,1);
+    P(2) = x*ceil(size(I,2)/x) - size(I,2);
+    A = [repmat(I(1,:), [floor(P(1)/2) 1]); I; repmat(I(end,:), [ceil(P(1)/2) 1])];
+    A = [repmat(A(:,1), [1 floor(P(2)/2)]), A, repmat(A(:,end), [1 ceil(P(2)/2)])];
+end
+
+function I = unpad(A, P)
+    fi = [floor(P(1)/2) ceil(P(1)/2)];
+    fj = [floor(P(2)/2) ceil(P(2)/2)];
+    I = A((fi(1)+1):(end-fi(2)), (fj(1)+1):(end-fj(2)));
+end
+
 function I = decode(D, A)
     I = D * A; % D[64.d] * A[d.i] 
 end
 
 function A = composeTo(I)
-    S = size(I)-7;
-    A = zeros(64, S(1)*S(2));
-    for i = 1:S(2)
-        for j = 1:S(1)
-            k = S(1)*(i-1)+j;
-            z = I(j+(0:7), i+(0:7));
+    S = size(I);
+    N = S/4-3;
+    A = zeros(256, N(1)*N(2));
+    v = 0:15;
+    k = 0;
+    for i = 1:4:S(2)-15
+        for j = 1:4:S(1)-15
+            k = k + 1;
+            z = I(j+v, i+v);
             A(:, k) = z(:);
         end
     end
 end
 
 function I = composeFrom(A, S)
-    B = zeros(S); I = zeros(S);
-    j = 0;
+    I = zeros(S);
+    B = zeros(S);
+    S = S(1) - 15;
+    v = 0:15;
+    k = -3; j = 1;
     for i = 1:size(A, 2)
-        k = mod(i-1, S(1)-7)+1;
-        if k == 1; j = j + 1; end
-        z = reshape(A(:, i), 8, 8);
-        I(k:k+7, j:j+7) = I(k:k+7, j:j+7) + z;
-        B(k:k+7, j:j+7) = B(k:k+7, j:j+7) + 1;
+        if k == S
+            k = 1;
+            j = j + 4;
+        else
+            k = k + 4;
+        end
+        z = reshape(A(:, i), 16, 16);
+        I(k+v, j+v) = I(k+v, j+v) + z;
+        B(k+v, j+v) = B(k+v, j+v) + 1;
     end
     I = I./B;
 end
 
-% function I = parseFrom(D, A, S)
-%     B = zeros(S); I = zeros(S);
-%     j = 0;
-%     for i = 1:size(A, 2)
-%         if ~mod(i-1, S(2)-7); j = j + 1; end
-%         z = reshape(sum(D.*A(:, i), 2), 8, 8);
-%         I(i:i+7, j:j+7) = I(i:i+7, j:j+7) + z;
-%         B(i:i+7, j:j+7) = B(i:i+7, j:j+7) + 1;
-%     end
-%     I = I./B;
-% end
-
-function A = initdict()
-    A = zeros(64, 64);
-    [x, y] = meshgrid(1:8);
-    fun = @(t,n) (1+cos(pi*(2*n+1)*(t-1)/16))/2;
-    for i = 1:8
-        for j = 1:8
-            z = fun(x,i).*fun(y,j);
-            A(:, 8*(i-1)+j) = z(:);
+function A = initdict(I)
+    if nargin < 1 || isempty(I)
+        A = zeros(256, 256);
+        [x, y] = meshgrid(1:16);
+        fun = @(t,n) (1+cos(pi*(2*n+1)*(t-1)/32))/2;
+        for i = 1:16
+            for j = 1:16
+                z = fun(x,i).*fun(y,j);
+                A(:, 16*(i-1)+j) = z(:);
+            end
         end
+    else
+        A = I(:, randi([1 size(I,2)], [1 256]));
     end
-    A = repmat(A, [1, 4]); % loosen dictionary
+    % A = repmat(A, [1, 4]); % loosen dictionary
 end
 
 function A = norm(I)

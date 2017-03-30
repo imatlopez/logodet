@@ -26,12 +26,12 @@ void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
         O = 0, P = 0, Q = 0;
     
     // outputs
-    po[0] = mxCreateDoubleMatrix(64, 256, mxREAL);
+    po[0] = mxCreateDoubleMatrix(256, 256, mxREAL);
     double *D = mxGetPr(po[0]);
     
-    for (int i = 0; i < 64; i++) {
+    for (int i = 0; i < 256; i++) {
         for (int j = 0; j < 256; j++) {
-            O = 64*j + i;
+            O = 256*j + i;
             C[O] += D[O];
         }
     }
@@ -74,9 +74,9 @@ void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
     for (int i = 0; i < 256; i++) {
         for (int j = 0; j < M; j++) {
             O = 256*j + i; // Index of A
-            for (int k = 0; k < 64; k++) {
-                P = 64*j + k; // Index of I
-                Q = 64*i + k; // Index of D
+            for (int k = 0; k < 256; k++) {
+                P = 256*j + k; // Index of I
+                Q = 256*i + k; // Index of D
                 if (A[O] != 0) E = (I[P] - A[O]*D[Q]) / A[O];
                 if (A[O] != 0 && S1[j] != 0 && S2[i] != 0) D[Q] += E*(W3[O]/S1[j]/S2[i]);
             }
