@@ -16,7 +16,8 @@
 void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
     
     // inputs
-    double *A = mxGetPr(pi[2]),
+    double *F = mxGetPr(pi[3]),
+           *A = mxGetPr(pi[2]),
            *I = mxGetPr(pi[1]),
            *C = mxGetPr(pi[0]);
     
@@ -32,54 +33,21 @@ void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
     for (int i = 0; i < 256; i++) {
         for (int j = 0; j < 256; j++) {
             O = 256*j + i;
-            C[O] += D[O];
-        }
-    }
-    
-    // sums
-    double *S1 = mxGetPr(mxCreateDoubleMatrix(1, M, mxREAL)),
-           *S2 = mxGetPr(mxCreateDoubleMatrix(256, 1, mxREAL));
-    
-    for (int i = 0; i < 256; i++) {
-        for (int j = 0; j < M; j++) {
-            O = 256*j + i;
-            S1[j] += A[O];
-            S2[i] += A[O];
+            D[O] = C[O];
         }
     }
     
     // weights
-    double *W1 = mxGetPr(mxCreateDoubleMatrix(256, M, mxREAL)),
-           *W2 = mxGetPr(mxCreateDoubleMatrix(256, M, mxREAL)),
-           *W3 = mxGetPr(mxCreateDoubleMatrix(256, M, mxREAL));
-    
-    for (int i = 0; i < 256; i++) {
-        for (int j = 0; j < M; j++) {
-            O = 256*j + i;
-            if (S1[j] != 0) W1[O] = A[O] / S1[j];
-            if (S2[i] != 0) W2[O] = A[O] / S2[i];
-            W3[O] = W1[O] * W2[O];
-        }
-    }
-    for (int i = 0; i < 256; i++) {
-        for (int j = 0; j < M; j++) {
-            O = 256*j + i;
-            S1[j] += W1[O];
-            S2[i] += W2[O];
-        }
-    }
+    double *W = mxGetPr(mxCreateDoubleMatrix(1, 256, mxREAL));
+    for (int i = 0; i < M; i++) W[(int)F[i]]++;
     
     // adapt
-    double E = 0;
-    for (int i = 0; i < 256; i++) {
-        for (int j = 0; j < M; j++) {
-            O = 256*j + i; // Index of A
-            for (int k = 0; k < 256; k++) {
-                P = 256*j + k; // Index of I
-                Q = 256*i + k; // Index of D
-                if (A[O] != 0) E = (I[P] - A[O]*D[Q]) / A[O];
-                if (A[O] != 0 && S1[j] != 0 && S2[i] != 0) D[Q] += E*(W3[O]/S1[j]/S2[i]);
-            }
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < 256; j++) {
+            O = 256*(int)F[i] + j;    // Index of D
+            P = 256*i    + j;    // Index of I
+            Q = 256*i    + (int)F[i]; // Index of A
+            D[O] += (I[P]-A[Q]*C[O]) / W[(int)F[i]];
         }
     }
     

@@ -3,7 +3,9 @@
 % mex sparseEncode.cpp
 % mex sparseAdapt.cpp
 
-In = 'walt.png';
+In = 'canvert.png';
+Ref = 'canvert.png';
+Out = 'sparsecanvert.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
@@ -11,27 +13,36 @@ I = norm(double(I));
 I = norm(histeq(I));
 [I, Ip] = pad(I);
 Iz = size(I);
-% Ii = composeTo(I);
+Ii = composeTo(I);
 
-% D = initdict(Ii);
-% D = adapt(D, Ii, 5);
+% R = imread(['../IMG/' Ref]);
+% if size(R,3) > 1; R = rgb2gray(R); end
+% R = norm(double(R));
+% R = norm(histeq(R));
+% [R, Rp] = pad(R);
+% Rz = size(R);
+% Ri = composeTo(R);
+% 
+% D = initdict(Ri);
+% D = adapt(D, Ri, 5);
 
-% Ia = sparseEncode(D, Ii);
+Ia = sparseEncode(D, Ii);
 Ib = decode(D, Ia);
 Ic = composeFrom(Ib, Iz);
 Id = unpad(Ic, Ip);
 
-imshowpair(I,norm(Ic),'montage')
+imwrite(norm(Id),['../IMG/' Out],'PNG')
+imshowpair(I,norm(Id),'montage')
 
-% remove('sparseEncode.mex*')
+% remove('*.mex*')
 
 function D = adapt(D, I, n)
     if nargin < 3 || isempty(n); n = 1; end
     while n > 0
         fprintf('Encode #%d\n', n)
-        A = sparseEncode(D, I);
+        [A, F] = sparseEncode(D, I);
         fprintf('Adapting #%d\n', n)
-        D = sparseAdapt(D, I, A);
+        D = sparseAdapt(D, I, A, F);
         n = n - 1;
     end
 end
@@ -55,13 +66,14 @@ function I = decode(D, A)
 end
 
 function A = composeTo(I)
+    ds = 1;
     S = size(I);
-    N = S/4-3;
+    N = (S-16)/ds+1;
     A = zeros(256, N(1)*N(2));
     v = 0:15;
     k = 0;
-    for i = 1:4:S(2)-15
-        for j = 1:4:S(1)-15
+    for i = 1:ds:S(2)-15
+        for j = 1:ds:S(1)-15
             k = k + 1;
             z = I(j+v, i+v);
             A(:, k) = z(:);
@@ -70,17 +82,18 @@ function A = composeTo(I)
 end
 
 function I = composeFrom(A, S)
+    ds = 1;
     I = zeros(S);
     B = zeros(S);
     S = S(1) - 15;
     v = 0:15;
-    k = -3; j = 1;
+    k = 1-ds; j = 1;
     for i = 1:size(A, 2)
         if k == S
             k = 1;
-            j = j + 4;
+            j = j + ds;
         else
-            k = k + 4;
+            k = k + ds;
         end
         z = reshape(A(:, i), 16, 16);
         I(k+v, j+v) = I(k+v, j+v) + z;

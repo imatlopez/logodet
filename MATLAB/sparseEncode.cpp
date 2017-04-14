@@ -29,7 +29,9 @@ void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
     
     // outputs
     po[0] = mxCreateDoubleMatrix(N, M, mxREAL);
+    po[1] = mxCreateDoubleMatrix(1, M, mxREAL);
     double *A = mxGetPr(po[0]);
+    double *F = mxGetPr(po[1]);
     
     double e  = 1e10,
            ke = 1e10,
@@ -44,6 +46,8 @@ void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
     for (int o = 0; o < M; o++) { // Each neighborhood
         
         e = 1e10;
+        
+        F[o] = -1;
         
         // Copy 1 neighborhood
         for (int i = 0; i < 256; i++) J[i] = I[o*256+i];
@@ -79,6 +83,7 @@ void mexFunction( int no, mxArray *po[], int ni, const mxArray *pi[] ) {
                     J[i] = J[i] - ix*D[ii*256+i];
                     e += fabs(J[i]);
                 }
+                if (coeffs < 1) F[o] = ii;
                 coeffs++;
             } else {
                 // printf("%d: %e >= %e\n",coeffs,ie,e);
