@@ -1,0 +1,256 @@
+====== Ref Zoom ======
+
+=== NONE ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+7470 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 9 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=0.640315.
+Keypoints matching accomplished in 3 seconds.
+
+=== BLIND.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+16193 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=3.17605.
+Keypoints matching accomplished in 5 seconds.
+
+=== CGRAD.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+15359 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=4.7841.
+Keypoints matching accomplished in 5 seconds.
+
+=== BRUSH.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+10287 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=3.59855.
+Keypoints matching accomplished in 3 seconds.
+
+=== CLEAN.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+7675 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=-0.596148.
+Keypoints matching accomplished in 2 seconds.
+
+=== DGRAD.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+12655 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=2.21298.
+Keypoints matching accomplished in 4 seconds.
+
+=== DILATE.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+15620 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=0.876831.
+Keypoints matching accomplished in 5 seconds.
+
+=== CGRAD.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+15359 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=4.59852.
+Keypoints matching accomplished in 4 seconds.
+
+=== MEDIN.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+7211 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=1.48521.
+Keypoints matching accomplished in 2 seconds.
+
+=== SGRAD.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+11231 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=5.4948.
+Keypoints matching accomplished in 3 seconds.
+
+=== SPARSER.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+7057 ASIFT keypoints are detected. 
+10618 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 9 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=4.13194.
+Keypoints matching accomplished in 2 seconds.
+
+=== SPLIT.m ===
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+3802 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images match! 14 matchings are identified. log(nfa)=-3.69928.
+Keypoints matching accomplished in 0 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+4661 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=-0.791402.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+4600 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=0.508376.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+6041 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 11 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=-0.342975.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+3695 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=-0.621003.
+Keypoints matching accomplished in 0 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+3817 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=-0.0378051.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+3880 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. Not enough matches to do epipolar filtering.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+7994 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=-0.161173.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+9490 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=0.0601237.
+Keypoints matching accomplished in 2 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+8262 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 10 seconds.
+Matching the keypoints...
+The two images do not match. The matching is not significant: log(nfa)=1.58244.
+Keypoints matching accomplished in 1 seconds.
+WARNING: The input images are resized to 800x600 for ASIFT. 
+         But the results will be normalized to the original image size.
+
+Computing keypoints on the two images...
+5113 ASIFT keypoints are detected. 
+9129 ASIFT keypoints are detected. 
+Keypoints computation accomplished in 13 seconds.
+Matching the keypoints...
+^C
+export OMP_NUM_THREADS=4; ../ASIFT/demo_ASIFT ../IMG/logo.png ../IMG/../MATLAB/tmpIMG05R02C.png ../imgOutVert.png ../imgOutHori.png ../matchings.txt ../keys1.txt ../keys2.txt: Interrupt
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ASIFT', '/Users/Home/Duke/ECE590/MATLAB/ASIFT.m', 89)" style="font-weight:bold">ASIFT</a> (<a href="matlab: opentoline('/Users/Home/Duke/ECE590/MATLAB/ASIFT.m',89,0)">line 89</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('split', '/Users/Home/Duke/ECE590/MATLAB/split.m', 40)" style="font-weight:bold">split</a> (<a href="matlab: opentoline('/Users/Home/Duke/ECE590/MATLAB/split.m',40,0)">line 40</a>)
+    ASIFT(fullfile('..', 'MATLAB', images{i}), Ref)
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('run', '/Users/Home/Duke/ECE590/MATLAB/run.m', 63)" style="font-weight:bold">run</a> (<a href="matlab: opentoline('/Users/Home/Duke/ECE590/MATLAB/run.m',63,0)">line 63</a>)
+fprintf('====== Ref ======\n')
+} 
+
+diary off

@@ -1,5 +1,4 @@
-clear
-In = 'tom.png';
+%In = 'tom.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
@@ -38,7 +37,7 @@ end
 results = cell(frag_num);
 
 for i = 1:length(images)
-    ASIFT('logo.png', fullfile('..', 'MATLAB', images{i}))
+    ASIFT(fullfile('..', 'MATLAB', images{i}), Ref)
     results{i} = size(matched());
     delete(images{i})
 end

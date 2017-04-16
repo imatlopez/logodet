@@ -1,7 +1,7 @@
 %clear
 
-In  = 'walt.png';
-Out = 'waltmat.png';
+%In  = 'walt.png';
+%Out = 'waltmat.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end

@@ -3,9 +3,9 @@
 % mex sparseEncode.cpp
 % mex sparseAdapt.cpp
 
-In = 'canvert.png';
-Ref = 'canvert.png';
-Out = 'sparsecanvert.png';
+%In = 'canvert.png';
+%Ref = 'canvert.png';
+%Out = 'sparsecanvert.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
@@ -15,16 +15,18 @@ I = norm(histeq(I));
 Iz = size(I);
 Ii = composeTo(I);
 
-% R = imread(['../IMG/' Ref]);
-% if size(R,3) > 1; R = rgb2gray(R); end
-% R = norm(double(R));
-% R = norm(histeq(R));
-% [R, Rp] = pad(R);
-% Rz = size(R);
-% Ri = composeTo(R);
-% 
-% D = initdict(Ri);
-% D = adapt(D, Ri, 5);
+if ~exist('D', 'var')
+    R = imread(['../IMG/' Ref]);
+    if size(R,3) > 1; R = rgb2gray(R); end
+    R = norm(double(R));
+    R = norm(histeq(R));
+    [R, Rp] = pad(R);
+    Rz = size(R);
+    Ri = composeTo(R);
+
+    D = initdict(Ri);
+    D = adapt(D, Ri, 5);
+end
 
 Ia = sparseEncode(D, Ii);
 Ib = decode(D, Ia);
@@ -32,7 +34,7 @@ Ic = composeFrom(Ib, Iz);
 Id = unpad(Ic, Ip);
 
 imwrite(norm(Id),['../IMG/' Out],'PNG')
-imshowpair(I,norm(Id),'montage')
+%imshowpair(I,norm(Id),'montage')
 
 % remove('*.mex*')
 

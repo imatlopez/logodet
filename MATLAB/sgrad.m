@@ -1,15 +1,14 @@
 %clear
 
-In  = 'zoomwalt.png';
-Out = 'matcan.png'; 
+%In  = 'zoomwalt.png';
+%Out = 'matcan.png'; 
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
 I = norm(double(I));
 I = histeq(I);
 
-J = norm(imgradient(I));
-J = I;%clip(I.*(1-J));
+J = I;
  
 frag_dim = [5 5];
 frag_ext = (frag_dim-1)/2;
@@ -28,7 +27,7 @@ for i = 1:size(I,1)
     end
 end
 
-imshow(clip(J));
+%imshow(clip(J));
 imwrite(clip(J),['../IMG/' Out],'PNG')
 
 function A = norm(I)

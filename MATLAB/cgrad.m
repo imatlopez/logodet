@@ -1,7 +1,7 @@
 %clear
 
-In  = 'zoomwalt.png';
-Out = 'matcan.png';
+%In  = 'zoomwalt.png';
+%Out = 'matcan.png';
 
 I = imread(['../IMG/' In]);
 if size(I,3) > 1; I = rgb2gray(I); end
@@ -32,7 +32,7 @@ end
 J = imsharpen(J);
 J = clip(J);
 
-imshow(J);
+%imshow(J);
 imwrite(J,['../IMG/' Out],'PNG')
 
 function A = norm(I)

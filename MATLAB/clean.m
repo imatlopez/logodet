@@ -1,4 +1,4 @@
-I = double(rgb2gray(imread('../IMG/zoomwalt.png')))/255;
+I = double(rgb2gray(imread(['../IMG/' In])))/255;
 G = imgradient(I);
 J = I;
 for i = 1:size(I,1)
@@ -12,5 +12,5 @@ for i = 1:size(I,1)
     end
 end
 J = uint8(round(J*255));
-imshow(J)
-imwrite(J,['../IMG/' 'matcan.png'],'PNG')
+%imshow(J)
+imwrite(J,['../IMG/' Out],'PNG')
