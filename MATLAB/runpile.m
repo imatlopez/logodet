@@ -1,12 +1,12 @@
-I7 = imread('../IMG/sparser.png');
-I2 = imread('../IMG/blind.png');
-I5 = imread('../IMG/cgrad.png');
-I8 = imread('../IMG/brush.png');
-I6 = imread('../IMG/clean.png');
-I3 = imread('../IMG/dgrad.png');
-I1 = imread('../IMG/dilate.png');
-I4 = imread('../IMG/medin.png');
-I0 = imread('../IMG/sgrad.png');
+I0 = imread('../IMG/sgrad.png');   % a) custom affine anisiotropic filter
+I1 = imread('../IMG/dilate.png');  % b) gradient multiplied filter
+I2 = imread('../IMG/blind.png');   % c) gaussian deconvolution
+I3 = imread('../IMG/dgrad.png');   % d) directional gradient weighted average filter
+I4 = imread('../IMG/medin.png');   % e) non-equalized median filter
+I5 = imread('../IMG/cgrad.png');   % f) color contour averaging
+I6 = imread('../IMG/clean.png');   % g) inverse gradient dependent median filter
+I7 = imread('../IMG/sparser.png'); % h) sparse encoding
+I8 = imread('../IMG/brush.png');   % i) equalized median filter
 
 x = 465; % vertical
 y = 106; % horizontal
@@ -20,9 +20,9 @@ I = nan(z*3+40, z*3+40, 3);
 for i = 1:3
     x2 = 1+(z+20)*(i-1);
     for j = 1:3
-        n = j+(i-1)*3-1;
+        n = (j-1) + 3*(i-1);
         y2 = 1+(z+20)*(j-1);
-        eval(sprintf('I(y2+v, x2+v,:) = repmat(I%d(x+v, y+v), [1 1 3]);', n));
+        eval(sprintf('I(x2+v, y2+v,:) = repmat(I%d(x+v, y+v), [1 1 3]);', n));
     end
 end
 
