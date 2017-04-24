@@ -1,4 +1,3 @@
-
 %In  = 'zoomwalt.png';
 %Out = 'matcan.png';
 

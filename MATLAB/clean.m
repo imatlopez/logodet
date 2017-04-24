@@ -1,3 +1,6 @@
+In  = 'canvert.png';
+Out = 'matcan.png';
+
 I = double(rgb2gray(imread(['../IMG/' In])))/255;
 G = imgradient(I);
 J = I;
@@ -12,5 +15,6 @@ for i = 1:size(I,1)
     end
 end
 J = uint8(round(J*255));
-%imshow(J)
+
+imshow(J)
 imwrite(J,['../IMG/' Out],'PNG')
